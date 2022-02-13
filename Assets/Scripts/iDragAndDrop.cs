@@ -4,6 +4,8 @@ using UnityEngine;
 
 public interface iDragAndDrop
 {
-    void onStartDrag();
-    void onEndDrag();
+    void OnStartDrag();
+    void OnEndDrag();
+
+    void AfterDragPosChange();
 }

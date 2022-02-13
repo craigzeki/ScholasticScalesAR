@@ -20,6 +20,12 @@ public class WeighableObject : MonoBehaviour, iDragAndDrop
     private bool scalesChanged = false;
     [SerializeField] private int numOfCollisions = 0;
 
+    GameObject[] dropPoints;
+    float[] distances;
+    private GameObject closestDropPoint;
+    private Vector2 dragStartPos2D;
+    private float dragStartPosY;
+
     private void Awake()
     {
         myRB = GetComponent<Rigidbody>();
@@ -126,14 +132,72 @@ public class WeighableObject : MonoBehaviour, iDragAndDrop
         
     }
 
-    public void onStartDrag()
+    public void OnStartDrag()
     {
         myRB.useGravity = false;
+        closestDropPoint = GetClosestDropPoint();
+        dragStartPos2D = new Vector2(transform.position.x, transform.position.z);
+        dragStartPosY = transform.position.y;
+
     }
 
-    public void onEndDrag()
+    public void OnEndDrag()
     {
         myRB.useGravity = true;
         myRB.velocity = Vector3.zero;
+        closestDropPoint = null;
+        dragStartPos2D = Vector2.zero;
+        dragStartPosY = 0;
+    }
+
+    public void AfterDragPosChange()
+    {
+        gameObject.TryGetComponent<Rigidbody>(out Rigidbody myRB);
+        //check if closest point has changed
+        GameObject tempClosestPoint = GetClosestDropPoint();
+        if(tempClosestPoint != closestDropPoint)
+        {
+            closestDropPoint = tempClosestPoint;
+            //dragStartPos2D = new Vector2(transform.position.x, transform.position.z);
+            //dragStartPosY = transform.
+        }
+        Vector2 dropPoint2DPos = new Vector2(closestDropPoint.transform.position.x, closestDropPoint.transform.position.z);
+        Vector2 myCurrent2DPos = new Vector2(transform.position.x, transform.position.z);
+
+        // y = mx+c
+        // c = y-intersect = the start y pos of the weighable object
+        // m = gradient (delta y / delta x) between the (dropPoint y - start weighable y) / distance between droppoint2D and start weighable2D
+        // x = the current distance between the now and the startpos
+        // y can then be calculated.
+
+        float c = dragStartPosY;
+        float m = (closestDropPoint.transform.position.y - dragStartPosY) / (Vector2.Distance(dragStartPos2D, dropPoint2DPos));
+        float x = Vector2.Distance(myCurrent2DPos, dragStartPos2D);
+        float y = (m * x) + c;
+
+        //turn distance into velocity to be added to the already calculated x and z velocity in the DragAndDrop manager
+        float velocityY = (y - transform.position.y) * Time.deltaTime * 40;
+        myRB.velocity = new Vector3(myRB.velocity.x, velocityY, myRB.velocity.z);
+
+    }
+
+    private GameObject GetClosestDropPoint()
+    {
+        //calculate how close to the scales and adjust y pos to lift object the closer it is
+        GameObject scales = GameManager.Instance.TheScales;
+        Debug.Assert(scales != null, "WeighableObject:AfterDragPosChange: scales cannot be null");
+
+        dropPoints = GameObject.FindGameObjectsWithTag("DropPoint");
+        if (dropPoints.Length == 0) { return null; }
+        distances = new float[dropPoints.Length];
+        for (int i = 0; i < dropPoints.Length; i++)
+        {
+            distances[i] = Vector3.Distance(transform.position, dropPoints[i].transform.position);
+        }
+
+        //sort the dropPoints by distance
+        System.Array.Sort(distances, dropPoints);
+
+        return dropPoints[0];
     }
 }

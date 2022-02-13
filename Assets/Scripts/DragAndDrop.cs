@@ -2,12 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.XR.ARFoundation;
 
 public class DragAndDrop : MonoBehaviour
 {
-    [SerializeField] private InputAction mouseClicked;
+    [SerializeField] ARRaycastManager arRaycastManager;
+    [SerializeField] float touchSpeed = 10f;
 
-    [SerializeField] private float mouseSpeed = 10f;
+    static List<ARRaycastHit> hits = new List<ARRaycastHit>();
+
+    private bool touchInProgress = false;
+    private Vector2 touchPos = Vector2.zero;
+    private float touchStartTime = 0f;
+    private float touchDuration = 0f;
+
+
+
+    private void Awake()
+    {
+        Debug.Assert(arRaycastManager != null, "DragAndDrop:Awake: arRaycastManager cannot be null");
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -22,19 +36,25 @@ public class DragAndDrop : MonoBehaviour
 
     private void OnEnable()
     {
-        mouseClicked.Enable();
-        mouseClicked.performed += MousePressed;
+        TouchInputManager.Instance.OnStartTouch += TouchStarted;
+        TouchInputManager.Instance.OnEndTouch += TouchEnded;
       
     }
 
     private void OnDisable()
     {
-        mouseClicked.performed -= MousePressed;
+        TouchInputManager.Instance.OnStartTouch -= TouchStarted;
+        TouchInputManager.Instance.OnEndTouch -= TouchEnded;
     }
 
-    private void MousePressed(InputAction.CallbackContext context)
+    private void TouchStarted(Vector2 screenPosition, float time)
     {
-        Ray myRay = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
+        touchInProgress = true;
+        touchPos = screenPosition;
+        touchStartTime = time;
+        touchDuration = 0f;
+
+        Ray myRay = Camera.main.ScreenPointToRay(Touchscreen.current.position.ReadValue());
         RaycastHit myHit;
         if (Physics.Raycast(myRay, out myHit))
         {
@@ -43,39 +63,38 @@ public class DragAndDrop : MonoBehaviour
                 StartCoroutine(DragUpdate(myHit.collider.gameObject));
             }
         }
+
     }
 
-    private void Touch(InputAction.CallbackContext context)
+    private void TouchEnded(Vector2 screenPosition, float time)
     {
-        Ray myRay = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
-        RaycastHit myHit;
-        if (Physics.Raycast(myRay, out myHit))
-        {
-            if ((myHit.collider != null) && (myHit.collider.gameObject.CompareTag("WeighableObject") || myHit.collider.gameObject.GetComponent<iDragAndDrop>() != null))
-            {
-                StartCoroutine(DragUpdate(myHit.collider.gameObject));
-            }
-        }
+        touchInProgress = false;
+        touchPos = screenPosition;
+        touchDuration = time - touchStartTime;
     }
 
     private IEnumerator DragUpdate(GameObject gameObject)
     {
         gameObject.TryGetComponent<Rigidbody>(out Rigidbody myRB);
         gameObject.TryGetComponent<iDragAndDrop>(out var iDragComponent);
-        iDragComponent?.onStartDrag();
+        iDragComponent?.OnStartDrag();
         //get the initial distance from the screen, we will use this later to enforce the distance does not change while dragging
         float initialDistanceFromScreen = Vector3.Distance(gameObject.transform.position, Camera.main.transform.position);
+        //float initialDistanceFromScreen = Vector3.Distance(gameObject.transform.position, Camera.main.nearClipPlane);
 
         //while the mouse button is down
-        while (mouseClicked.ReadValue<float>() != 0)
+        while (touchInProgress)
         {
             //get the current point the mouse is at
-            Ray myRay = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
+            Ray myRay = Camera.main.ScreenPointToRay(Touchscreen.current.position.ReadValue());
             //calculate the vector between the mouse and the object
             Vector3 direction = myRay.GetPoint(initialDistanceFromScreen) - gameObject.transform.position;
-            myRB.velocity = direction * mouseSpeed;
+            direction = new Vector3(direction.x, 0, direction.z);
+            myRB.velocity = direction * touchSpeed;
+            iDragComponent?.AfterDragPosChange();
             yield return new WaitForFixedUpdate();
         }
-        iDragComponent?.onEndDrag();
+        iDragComponent?.OnEndDrag();
     }
+
 }

@@ -14,9 +14,10 @@ GameObject:
   - component: {fileID: 6295531745302842209}
   - component: {fileID: 6893817428235400758}
   - component: {fileID: 3053642174737515215}
+  - component: {fileID: 3552246598014107438}
   - component: {fileID: 673447592608852383}
   m_Layer: 0
-  m_Name: AR Default Plane
+  m_Name: FeatheredPlane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -104,7 +105,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f1a110d32af21aa4d872c707dfcc6043, type: 2}
+  - {fileID: 2100000, guid: afb94082d3615b84284e874871397c98, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -126,6 +127,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &3552246598014107438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6660908661357811845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a6b6952811d877499f3a51759c52d3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_FeatheringWidth: 0.2
 --- !u!120 &673447592608852383
 LineRenderer:
   m_ObjectHideFlags: 0
