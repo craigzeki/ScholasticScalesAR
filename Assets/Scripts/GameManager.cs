@@ -17,6 +17,8 @@ public enum GameStates : int
 
 public class GameManager : MonoBehaviour
 {
+    public delegate void gameStateChanged(GameStates previousState, GameStates newState);
+    public event gameStateChanged OnGameStateChanged;
 
     private GameStates currentGameState;
     private GameStates newGameState;
@@ -43,7 +45,7 @@ public class GameManager : MonoBehaviour
             if(instance == null)
             {
                 instance = GameObject.FindObjectOfType<GameManager>();
-                Debug.Assert(instance != null, "GameManager:Instance: instance cannot be null - could not find GameManager instance");
+                //Debug.Assert(instance != null, "GameManager:Instance: instance cannot be null - could not find GameManager instance");
             }
             return instance;
         }
@@ -56,7 +58,7 @@ public class GameManager : MonoBehaviour
     {
         //Check gaurds
 
-
+        Debug.Log("Debug");
         
         //initialise the state machines
         currentGameState = GameStates.Initialised;
@@ -96,6 +98,12 @@ public class GameManager : MonoBehaviour
     }
 
 
+    private void setCurrentGameState(GameStates newState)
+    {
+        if (OnGameStateChanged != null) OnGameStateChanged(currentGameState, newState);
+        currentGameState = newState;
+    }
+
     private void StartStateTransition()
     {
         switch (NewGameState)
@@ -105,14 +113,14 @@ public class GameManager : MonoBehaviour
                 {
                     // only do this when starting the game - both states must be initialised
 
-                    currentGameState = NewGameState;
+                    setCurrentGameState(NewGameState);
                 }
                 break;
             case GameStates.SetupPlayArea:
                 if(currentGameState == GameStates.Initialised)
                 {
                     //when entering from Initialised
-                    currentGameState = NewGameState;
+                    setCurrentGameState(NewGameState);
                 }
                 break;
             case GameStates.GameSelection:
@@ -120,7 +128,7 @@ public class GameManager : MonoBehaviour
                 {
 
 
-                    currentGameState = NewGameState;
+                    setCurrentGameState(NewGameState);
                 }
                 break;
             case GameStates.InstallNewAddOn:

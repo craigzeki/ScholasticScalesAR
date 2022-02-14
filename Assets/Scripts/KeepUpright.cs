@@ -33,10 +33,10 @@ public class KeepUpright : MonoBehaviour
         //transform.rotation = Quaternion.Euler(new Vector3(0, transform.rotation.y, 0));
         //debugText.text = "Rotation: " + transform.rotation.eulerAngles.ToString();
 
-        var cameraForward = Camera.current.transform.forward;
+        var cameraForward = Camera.main.transform.forward;
         var cameraBearing = new Vector3(cameraForward.x, 0, cameraForward.z).normalized;
         transform.rotation = Quaternion.LookRotation(cameraBearing);
-        debugText.text = "Rotation: " + transform.rotation.eulerAngles.ToString();
+        //debugText.text = "Rotation: " + transform.rotation.eulerAngles.ToString();
     }
     
 }

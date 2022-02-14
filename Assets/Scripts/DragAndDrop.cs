@@ -58,9 +58,19 @@ public class DragAndDrop : MonoBehaviour
         RaycastHit myHit;
         if (Physics.Raycast(myRay, out myHit))
         {
-            if ((myHit.collider != null) && (myHit.collider.gameObject.CompareTag("WeighableObject") || myHit.collider.gameObject.GetComponent<iDragAndDrop>() != null))
+            if (myHit.collider != null)
             {
-                StartCoroutine(DragUpdate(myHit.collider.gameObject));
+                GameObject go = null;
+                if(myHit.collider.gameObject.GetComponent<iDragAndDrop>() != null)
+                {
+                    go = myHit.collider.gameObject;
+                }
+                else if(myHit.collider.gameObject.GetComponentInParent<iDragAndDrop>() != null)
+                {
+                    go = myHit.collider.gameObject.transform.parent.gameObject;
+                }
+
+                if (go != null) { StartCoroutine(DragUpdate(go)); }
             }
         }
 

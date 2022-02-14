@@ -7,6 +7,8 @@ TagManager:
   - Scales
   - WeighableObject
   - DropPoint
+  - Ground
+  - Bucket
   layers:
   - Default
   - TransparentFX
@@ -14,7 +16,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Cheveron
   - 
   - 
   - 
