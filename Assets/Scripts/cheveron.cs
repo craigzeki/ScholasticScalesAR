@@ -24,7 +24,7 @@ public class cheveron : MonoBehaviour
 
     public void SetMyScale()
     {
-        transform.localScale = new Vector3(transmittingObject.transform.lossyScale.x, transmittingObject.transform.lossyScale.y, transmittingObject.transform.lossyScale.z / 10);
+        transform.localScale = new Vector3(transmittingObject.transform.lossyScale.x, transmittingObject.transform.lossyScale.y, transmittingObject.transform.lossyScale.z / 10) / 2;
     }
 
     // Update is called once per frame

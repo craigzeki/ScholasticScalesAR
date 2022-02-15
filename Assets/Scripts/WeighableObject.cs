@@ -9,7 +9,7 @@ using System.Linq;
 public class WeighableObject : MonoBehaviour, iDragAndDrop
 {
 
-    [SerializeField] TextMeshPro debugText;
+    //[SerializeField] TextMeshPro debugText;
 
 
     //[SerializeField] private Collider myScales = null;
@@ -24,6 +24,7 @@ public class WeighableObject : MonoBehaviour, iDragAndDrop
     [SerializeField] GameObject groundMarkerPrefab;
     [SerializeField] GameObject groundMarker;
     [SerializeField] GameObject cheveronPrefab;
+    [SerializeField] GameObject labelText;
     private GameObject firstCheveron;
     private float cheveronYSize;
 
@@ -52,6 +53,7 @@ public class WeighableObject : MonoBehaviour, iDragAndDrop
         Debug.Assert(myRB != null, "Weighable:Awake:Assert myRB cannot be null");
         Debug.Assert(groundMarkerPrefab != null, "Weighable:Awake:Assert groundMarkerPrefab cannot be null");
         Debug.Assert(cheveronPrefab != null, "Weighable:Awake:Assert cheveronPrefab cannot be null");
+        Debug.Assert(labelText != null, "Weighable:Awake:Assert labelText cannot be null");
 
         groundMarker = Instantiate(groundMarkerPrefab);
         groundMarker.SetActive(false);
@@ -189,6 +191,7 @@ public class WeighableObject : MonoBehaviour, iDragAndDrop
                 //reset the start pos
                 dragStartPosY = transform.position.y;
                 dragStartPos2D = new Vector2(transform.position.x, transform.position.z);
+                labelText.SetActive(true);
                 break;
             case "Bucket":
                 _directBucket = other.gameObject;
@@ -201,6 +204,18 @@ public class WeighableObject : MonoBehaviour, iDragAndDrop
         }
 
         
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        switch (other.tag)
+        {
+            case "Ground":
+                
+                labelText.SetActive(true);
+                break;
+            
+        }
     }
 
     public bool CheckAndSetBucket()
@@ -262,6 +277,11 @@ public class WeighableObject : MonoBehaviour, iDragAndDrop
     {
         switch (other.tag)
         {
+            case "Ground":
+                dragStartPosY = transform.position.y;
+                dragStartPos2D = new Vector2(transform.position.x, transform.position.z);
+                labelText.SetActive(false);
+                break;
             case "Bucket":
                 _directBucket = null;
                 CheckAndSetBucket(other.gameObject);
@@ -334,14 +354,14 @@ public class WeighableObject : MonoBehaviour, iDragAndDrop
 
         if (Physics.Raycast(ray, out RaycastHit cheveronHit, Mathf.Infinity, ~myMask))
         {
-            if(cheveronHit.distance > (cheveronYSize/3))
+            if(cheveronHit.distance > (cheveronYSize/2))
             {
                 CreateCheveron();
             }
         }
         else
         {
-            if ((hit.distance > cheveronYSize/3))
+            if ((hit.distance > cheveronYSize/10))
             {
                 CreateCheveron();
             }
@@ -364,7 +384,7 @@ public class WeighableObject : MonoBehaviour, iDragAndDrop
         }
         Vector2 dropPoint2DPos = new Vector2(closestDropPoint.transform.position.x, closestDropPoint.transform.position.z);
         Vector2 myCurrent2DPos = new Vector2(transform.position.x, transform.position.z);
-        debugText.text = "DropPoint y: " + closestDropPoint.transform.position.y.ToString();
+        //debugText.text = "DropPoint y: " + closestDropPoint.transform.position.y.ToString();
         // y = mx+c
         // c = y-intersect = the start y pos of the weighable object
         // m = gradient (delta y / delta x) between the (dropPoint y - start weighable y) / distance between droppoint2D and start weighable2D

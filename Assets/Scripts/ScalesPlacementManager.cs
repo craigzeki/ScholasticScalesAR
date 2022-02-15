@@ -33,6 +33,7 @@ public class ScalesPlacementManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI scanningText;
     [SerializeField] TextMeshProUGUI positioningText;
     [SerializeField] Button doneButton;
+    [SerializeField] Image scanner;
 
     [SerializeField] ARRaycastManager arRaycastManager;
     static List<ARRaycastHit> hits = new List<ARRaycastHit>();
@@ -252,6 +253,9 @@ public class ScalesPlacementManager : MonoBehaviour
                 if ((currentState == ScalesPlacementState.Scanning) || (currentState == ScalesPlacementState.Complete))
                 {
                     //coming here from scanning or complete (user wants to reposition))
+                    //stop scanner
+                    scanner.enabled = false;
+
 
                     //show positioning text
                     positioningText.enabled = true;
