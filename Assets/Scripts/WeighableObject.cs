@@ -4,8 +4,10 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
 using System.Linq;
+using ZekstersLab.Helpers;
 
 [RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(CheckBounds))]
 public class WeighableObject : MonoBehaviour, iDragAndDrop
 {
 
@@ -24,10 +26,12 @@ public class WeighableObject : MonoBehaviour, iDragAndDrop
     [SerializeField] GameObject groundMarkerPrefab;
     [SerializeField] GameObject groundMarker;
     [SerializeField] GameObject cheveronPrefab;
-    [SerializeField] GameObject labelText;
+    [SerializeField] Transform cheveronSpawnPoint;
     private GameObject firstCheveron;
+    private FixRotationToZero myFixedRotator;
     private float cheveronYSize;
 
+    private bool isGrounded = false;
 
     GameObject[] dropPoints;
     float[] distances;
@@ -46,20 +50,26 @@ public class WeighableObject : MonoBehaviour, iDragAndDrop
 
     public float MyMass { get => myMass; }
     public GameObject Bucket { get => _bucket;}
-
+    public bool IsGrounded { get => isGrounded;}
+    int gap1 = 3;
+    int gap2 = 1;
     private void Awake()
     {
         myRB = GetComponent<Rigidbody>();
+        TryGetComponent<FixRotationToZero>(out myFixedRotator);
+
         Debug.Assert(myRB != null, "Weighable:Awake:Assert myRB cannot be null");
         Debug.Assert(groundMarkerPrefab != null, "Weighable:Awake:Assert groundMarkerPrefab cannot be null");
         Debug.Assert(cheveronPrefab != null, "Weighable:Awake:Assert cheveronPrefab cannot be null");
-        Debug.Assert(labelText != null, "Weighable:Awake:Assert labelText cannot be null");
+        Debug.Assert(cheveronSpawnPoint != null, "Weighable:Awake:Assert cheveronSpawnPoint cannot be null");
 
+        setIsGrounded(false);
         groundMarker = Instantiate(groundMarkerPrefab);
+        
         groundMarker.SetActive(false);
 
         firstCheveron = CreateCheveron();
-        cheveronYSize = firstCheveron.GetComponent<CheckBounds>().MyBoundsSize.y;
+        //cheveronYSize = firstCheveron.GetComponent<CheckBounds>().MyBoundsSize.y;
         firstCheveron.SetActive(false);
 
         myMass = myRB.mass;
@@ -70,9 +80,11 @@ public class WeighableObject : MonoBehaviour, iDragAndDrop
         GameObject temp = Instantiate(cheveronPrefab);
         temp.GetComponent<cheveron>().transmittingObject = this.gameObject;
         temp.GetComponent<cheveron>().targetObject = groundMarker;
-        temp.transform.position = transform.position;
-        temp.GetComponent<cheveron>().SetMyScale();
-
+        //temp.transform.position = cheveronSpawnPoint.position - new Vector3(0,temp.GetComponent<CheckBounds>().MyBoundsSize.y,0);
+        temp.transform.position = cheveronSpawnPoint.position;
+        //temp.GetComponent<cheveron>().SetMyScale();
+        Helpers.matchXSizeLockedAspectRatio(this.gameObject, temp, 0.75f);
+        temp.GetComponent<CheckBounds>().calcBoundsNow();
 
         return temp;
     }
@@ -83,7 +95,6 @@ public class WeighableObject : MonoBehaviour, iDragAndDrop
         dragStartPosY = transform.position.y;
         
         cheveronYSize = firstCheveron.GetComponent<CheckBounds>().MyBoundsSize.y;
-        //cheveronYSize = firstCheveron.transform.localScale.y;
         Destroy(firstCheveron);
     }
 
@@ -183,6 +194,15 @@ public class WeighableObject : MonoBehaviour, iDragAndDrop
 
     }
 
+    private void setIsGrounded(bool state)
+    {
+        
+        isGrounded = state;
+        if(myFixedRotator == null) { return; }
+        myFixedRotator.enabled = isGrounded;
+    }
+   
+
     private void OnTriggerEnter(Collider other)
     {
         switch (other.tag)
@@ -191,7 +211,7 @@ public class WeighableObject : MonoBehaviour, iDragAndDrop
                 //reset the start pos
                 dragStartPosY = transform.position.y;
                 dragStartPos2D = new Vector2(transform.position.x, transform.position.z);
-                labelText.SetActive(true);
+                setIsGrounded(true);
                 break;
             case "Bucket":
                 _directBucket = other.gameObject;
@@ -211,8 +231,8 @@ public class WeighableObject : MonoBehaviour, iDragAndDrop
         switch (other.tag)
         {
             case "Ground":
-                
-                labelText.SetActive(true);
+
+                setIsGrounded(true);
                 break;
             
         }
@@ -262,7 +282,11 @@ public class WeighableObject : MonoBehaviour, iDragAndDrop
     {
         if(!CheckAndSetBucket())
         {
-            exitingColliderGameObject.GetComponent<Bucket>().removeMass(this.gameObject);
+            if (exitingColliderGameObject != null)
+            {
+                exitingColliderGameObject.GetComponent<Bucket>().removeMass(this.gameObject);
+            }
+            
             return false;
         }
         else
@@ -280,7 +304,7 @@ public class WeighableObject : MonoBehaviour, iDragAndDrop
             case "Ground":
                 dragStartPosY = transform.position.y;
                 dragStartPos2D = new Vector2(transform.position.x, transform.position.z);
-                labelText.SetActive(false);
+                setIsGrounded(false);
                 break;
             case "Bucket":
                 _directBucket = null;
@@ -304,7 +328,7 @@ public class WeighableObject : MonoBehaviour, iDragAndDrop
         //dragStartPosY = transform.position.y;
 
         groundMarker.SetActive(true);
-        groundMarker.transform.localScale = new Vector3(transform.lossyScale.x, transform.lossyScale.y * 0.2f, transform.lossyScale.z);
+        Helpers.matchXSizeLockedAspectRatio(this.gameObject, groundMarker, 0.75f);
 
         drawGroundMarker();
 
@@ -330,7 +354,7 @@ public class WeighableObject : MonoBehaviour, iDragAndDrop
 
         Ray ray = new Ray(transform.position, Vector3.down);
 
-        LayerMask myMask = 1 << LayerMask.NameToLayer("Cheveron");
+        int myMask = 1 << LayerMask.NameToLayer("Cheveron");
         myMask = ~myMask;
 
         //hits.AddRange(Physics.RaycastAll(ray, Mathf.Infinity, myMask));
@@ -354,14 +378,14 @@ public class WeighableObject : MonoBehaviour, iDragAndDrop
 
         if (Physics.Raycast(ray, out RaycastHit cheveronHit, Mathf.Infinity, ~myMask))
         {
-            if(cheveronHit.distance > (cheveronYSize/2))
+            if(cheveronHit.distance > (cheveronYSize*gap1))
             {
                 CreateCheveron();
             }
         }
         else
         {
-            if ((hit.distance > cheveronYSize/10))
+            if ((hit.distance > cheveronYSize*gap2))
             {
                 CreateCheveron();
             }

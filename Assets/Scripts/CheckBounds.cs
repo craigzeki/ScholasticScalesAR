@@ -14,7 +14,14 @@ public class CheckBounds : MonoBehaviour
     [SerializeField] List<Bounds> childBounds;
     [SerializeField] List<Vector3> childBoundsSize;
 
-    public Vector3 MyBoundsSize { get => myBoundsSize;  }
+    public Vector3 MyBoundsSize
+    {
+        get
+        {
+            calcBoundsNow();
+            return myBoundsSize;
+        }
+    }
 
     // Start is called before the first frame update
     void Awake()
@@ -40,9 +47,15 @@ public class CheckBounds : MonoBehaviour
         myBoundsSize = myBounds.size;
     }
 
+    bool debug = false;
+
     // Update is called once per frame
     void Update()
     {
         
+        if(debug)
+        {
+            calcBoundsNow();
+        }
     }
 }

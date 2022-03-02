@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3828612826584494908}
   - component: {fileID: 150835344744148616}
   - component: {fileID: 6750803664971399152}
+  - component: {fileID: 6529172320514298630}
   m_Layer: 0
   m_Name: GroundMarker
   m_TagString: Untagged
@@ -27,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 643590600757218175}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.302, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 0.2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -96,3 +97,21 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6529172320514298630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 643590600757218175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39efa9c8d5409264482e4fda511b5d11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myBounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}
+  myBoundsSize: {x: 0, y: 0, z: 0}
+  childBounds: []
+  childBoundsSize: []

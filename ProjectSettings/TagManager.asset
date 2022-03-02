@@ -9,6 +9,14 @@ TagManager:
   - DropPoint
   - Ground
   - Bucket
+  - Pig
+  - NoDrop
+  - Wall
+  - Chicken
+  - Cow
+  - Sheep
+  - LeftSpawnPoint
+  - RightSpawnPoint
   layers:
   - Default
   - TransparentFX

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 970315146821723096}
   m_Layer: 0
   m_Name: Trigger
-  m_TagString: WeighableObject
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -56,6 +56,7 @@ GameObject:
   - component: {fileID: 6089350477835671660}
   - component: {fileID: 2433038842255499015}
   - component: {fileID: 9083403625776836865}
+  - component: {fileID: 2311721019712559911}
   m_Layer: 0
   m_Name: WeighableText
   m_TagString: Untagged
@@ -79,7 +80,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -1.5}
+  m_AnchoredPosition: {x: 0, y: 1.15}
   m_SizeDelta: {x: 5.5038, y: 0.8967}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &6089350477835671660
@@ -228,6 +229,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0912c5a187216014a92b3ebfc8c32d02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2311721019712559911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7509036668062845926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4819266040c71e2499dc0876b93afa61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &7622612618424895219
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4781538338923507765}
+  m_Layer: 0
+  m_Name: CheveronSpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4781538338923507765
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7622612618424895219}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1862115960549680144}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8312207376954670070
 GameObject:
   m_ObjectHideFlags: 0
@@ -242,6 +285,7 @@ GameObject:
   - component: {fileID: 7476864702044337521}
   - component: {fileID: 5093717160958144855}
   - component: {fileID: 7863128585489342498}
+  - component: {fileID: 1388379552718344044}
   m_Layer: 0
   m_Name: QuizBlock
   m_TagString: WeighableObject
@@ -262,6 +306,7 @@ Transform:
   m_Children:
   - {fileID: 5402913602882468641}
   - {fileID: 5098451516791204127}
+  - {fileID: 4781538338923507765}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -332,7 +377,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!114 &5093717160958144855
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -348,7 +393,7 @@ MonoBehaviour:
   groundMarkerPrefab: {fileID: 643590600757218175, guid: fe25e9fb2876234479ba9fd69a97317d, type: 3}
   groundMarker: {fileID: 0}
   cheveronPrefab: {fileID: 7381703212286908607, guid: d993d802b0362b347857ad7b69038105, type: 3}
-  labelText: {fileID: 7509036668062845926}
+  cheveronSpawnPoint: {fileID: 4781538338923507765}
   myMass: 0
 --- !u!65 &7863128585489342498
 BoxCollider:
@@ -363,3 +408,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.0000001, y: 1.0000001, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1388379552718344044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8312207376954670070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39efa9c8d5409264482e4fda511b5d11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myBounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}
+  myBoundsSize: {x: 0, y: 0, z: 0}
+  childBounds: []
+  childBoundsSize: []

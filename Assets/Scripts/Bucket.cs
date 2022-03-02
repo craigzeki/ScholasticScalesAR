@@ -23,7 +23,11 @@ public class Bucket : MonoBehaviour
         mySpring = myHinge.spring;
 
     }
-    
+    public void ResetScales()
+    {
+        myWeighables.Clear();
+        totalMass = 0;
+    }
     public void addMass(GameObject weighable, float mass)
     {
         //get the unioque ID of the weighable game object and use it as the key

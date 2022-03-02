@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 9039269286368459114}
   - component: {fileID: 280980526523288290}
   - component: {fileID: -3247084777224437781}
+  - component: {fileID: 6607715672504832270}
   m_Layer: 6
   m_Name: Cheveron
   m_TagString: Untagged
@@ -99,7 +100,6 @@ MonoBehaviour:
   transmittingObject: {fileID: 0}
   targetObject: {fileID: 0}
   fallSpeed: 1
-  stopDistanceFromTarget: 0
 --- !u!114 &-3247084777224437781
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -118,3 +118,16 @@ MonoBehaviour:
   myBoundsSize: {x: 0, y: 0, z: 0}
   childBounds: []
   childBoundsSize: []
+--- !u!65 &6607715672504832270
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7381703212286908607}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2, y: 1.1261683, z: 2}
+  m_Center: {x: 0, y: 0.43691584, z: 0}

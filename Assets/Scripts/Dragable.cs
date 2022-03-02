@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Dragable : MonoBehaviour
 {
-    private bool selected = false;
+    //private bool selected = false;
     public bool locked = false;
 
     private void OnEnable()
@@ -23,7 +23,7 @@ public class Dragable : MonoBehaviour
     public void TouchStarted(Vector2 screenPosition, float time)
     {
         Debug.Log("BOO!");
-        selected = false;
+        //selected = false;
         if (!locked)
         {
 

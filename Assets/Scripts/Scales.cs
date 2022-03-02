@@ -4,25 +4,36 @@ using UnityEngine;
 
 public class Scales : MonoBehaviour
 {
-    [SerializeField] private float totalMass1 = 0;
-    [SerializeField] private float totalMass2 = 0;
-    [SerializeField] private Transform myForcePoint1;
-    [SerializeField] private Transform myForcePoint2;
-    [SerializeField] private Collider myCollider1;
-    [SerializeField] private Collider myCollider2;
+    //[SerializeField] private float totalMass1 = 0;
+    //[SerializeField] private float totalMass2 = 0;
+    [SerializeField] public Transform leftSpawnPoint;
+    [SerializeField] public Transform rightSpawnPoint;
+    //[SerializeField] private Transform myForcePoint1;
+    //[SerializeField] private Transform myForcePoint2;
+    //[SerializeField] private Collider myCollider1;
+    //[SerializeField] private Collider myCollider2;
 
-    [SerializeField] Rigidbody balanceBoardRigidBody;
+    //[SerializeField] Rigidbody balanceBoardRigidBody;
+
+    [SerializeField] private Bucket leftBucket;
+    [SerializeField] private Bucket rightBucket;
+
 
     public void Awake()
     {
         //myRb = GetComponent<Rigidbody>();
-        Debug.Assert(myForcePoint1 != null, "CentraliseWeight:Awake myForcePoint1 cannot be null");
-        Debug.Assert(myForcePoint2 != null, "CentraliseWeight:Awake myForcePoint2 cannot be null");
-        Debug.Assert(myCollider1 != null, "CentraliseWeight:Awake myCollider1 cannot be null");
-        Debug.Assert(myCollider2 != null, "CentraliseWeight:Awake myCollider2 cannot be null");
-        Debug.Assert(balanceBoardRigidBody != null, "CentraliseWeight:Awake balanceBoardRigidBody cannot be null");
+        //Debug.Assert(myForcePoint1 != null, "CentraliseWeight:Awake myForcePoint1 cannot be null");
+        //Debug.Assert(myForcePoint2 != null, "CentraliseWeight:Awake myForcePoint2 cannot be null");
+        //Debug.Assert(myCollider1 != null, "CentraliseWeight:Awake myCollider1 cannot be null");
+        //Debug.Assert(myCollider2 != null, "CentraliseWeight:Awake myCollider2 cannot be null");
+        //Debug.Assert(balanceBoardRigidBody != null, "CentraliseWeight:Awake balanceBoardRigidBody cannot be null");
     }
 
+    public void resetScaleWeights()
+    {
+        leftBucket.ResetScales();
+        rightBucket.ResetScales();
+    }
     //Old code
     //private void OnCollisionEnter(Collision collision)
     //{

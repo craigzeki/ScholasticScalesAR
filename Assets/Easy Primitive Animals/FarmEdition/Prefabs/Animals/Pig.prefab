@@ -761,6 +761,7 @@ MonoBehaviour:
   RearLegR: {fileID: 0}
   moveAngle: 90
   movSpeed: 1
+  relativeLegSpeed: 40
 --- !u!1 &495403447740859083
 GameObject:
   m_ObjectHideFlags: 0
