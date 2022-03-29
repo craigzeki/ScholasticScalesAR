@@ -105,9 +105,10 @@ public class GameManager : MonoBehaviour
         
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
+        //handle game state machine cyclic code
         switch (currentGameState)
         {
             case GameStates.Initialised:
@@ -138,7 +139,7 @@ public class GameManager : MonoBehaviour
     }
 
 
-    private void setCurrentGameState(GameStates newState)
+    private void SetCurrentGameState(GameStates newState)
     {
         if (OnGameStateChanged != null) OnGameStateChanged(currentGameState, newState);
         currentGameState = newState;
@@ -153,14 +154,14 @@ public class GameManager : MonoBehaviour
                 {
                     // only do this when starting the game - both states must be initialised
 
-                    setCurrentGameState(NewGameState);
+                    SetCurrentGameState(NewGameState);
                 }
                 break;
             case GameStates.SetupPlayArea:
                 if(currentGameState == GameStates.Initialised)
                 {
                     //when entering from Initialised
-                    setCurrentGameState(NewGameState);
+                    SetCurrentGameState(NewGameState);
                 }
                 break;
             case GameStates.GameSelection:
@@ -171,7 +172,7 @@ public class GameManager : MonoBehaviour
                     addWeight(learnBlockPrefab, rightSpawnPoint);
 
 
-                    setCurrentGameState(NewGameState);
+                    SetCurrentGameState(NewGameState);
                 }
                 break;
             case GameStates.WeightSelection:
@@ -181,7 +182,7 @@ public class GameManager : MonoBehaviour
                     selectGameTypeCanvas.enabled = false;
                     selectWeightsCanvas.enabled = true;
 
-                    setCurrentGameState(NewGameState);
+                    SetCurrentGameState(NewGameState);
                 }
                 break;
             case GameStates.InstallNewAddOn:
@@ -191,7 +192,7 @@ public class GameManager : MonoBehaviour
                 {
                     selectWeightsCanvas.enabled = false;
 
-                    setCurrentGameState(NewGameState);
+                    SetCurrentGameState(NewGameState);
                 }
                 break;
             case GameStates.QuizMode:
@@ -199,7 +200,7 @@ public class GameManager : MonoBehaviour
                 {
                     selectWeightsCanvas.enabled = false;
 
-                    setCurrentGameState(NewGameState);
+                    SetCurrentGameState(NewGameState);
                 }
                 break;
             case GameStates.NumOfStates:
