@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
 
 
-//Modified version based on tutorial found here 
+//Modified version based on tutorial found here https://youtu.be/ERAN5KBy2Gs
 
 [DefaultExecutionOrder(-1)] //run before the other scripts
 public class TouchInputManager : MonoBehaviour
