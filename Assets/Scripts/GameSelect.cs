@@ -10,16 +10,19 @@ public class GameSelect : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        //if not already on a bucket and now we are
         if((other.tag == "Bucket") && !triggered)
         {
+            //set triggered and the run the ChangeGameType coroutine
             triggered = true;
-            StartCoroutine(waitforonesec());
+            StartCoroutine(ChangeGameType());
 
         }
     }
 
-    IEnumerator waitforonesec()
+    IEnumerator ChangeGameType()
     {
+        //Wait one second so that the user can see the scales tilt after the block is placed
         yield return new WaitForSeconds(1);
         GameManager.Instance.GameType = gameType;
     }

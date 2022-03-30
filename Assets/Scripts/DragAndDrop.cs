@@ -60,6 +60,7 @@ public class DragAndDrop : MonoBehaviour
         {
             if (myHit.collider != null)
             {
+                //if raycast has hit an object, test if it is dragable or contains a dragable object as a child
                 GameObject go = null;
                 if(myHit.collider.gameObject.GetComponent<iDragAndDrop>() != null)
                 {

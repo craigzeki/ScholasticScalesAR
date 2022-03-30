@@ -395,6 +395,8 @@ public class WeighableObject : MonoBehaviour, iDragAndDrop
 
         //float x = Vector2.Distance(myCurrent2DPos, dragStartPos2D);
         float x = 0;
+        //calculate x pos correctly depending on if we are above
+        //or below the drop point
         if (dragStartPos2D.y < dropPoint2DPos.y)
         {
 
