@@ -1,3 +1,8 @@
+//Author: Craig Zeki
+//Student ID: zek21003166
+//
+//Based on tutorial on Unity Learn: https://learn.unity.com/tutorial/implementing-feathered-planes-for-plane-detection-in-ar-foundation#60370e0dedbc2a2dc0055983
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

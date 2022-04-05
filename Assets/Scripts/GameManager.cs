@@ -1,3 +1,6 @@
+//Author: Craig Zeki
+//Student ID: zek21003166
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -30,6 +33,8 @@ public enum WeightType : int
     Fruits,
     NumofWeights
 }
+
+[RequireComponent(typeof(AudioSource))]
 public class GameManager : MonoBehaviour
 {
     public delegate void gameStateChanged(GameStates previousState, GameStates newState);
@@ -55,6 +60,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject cartoonBlocks2Prefab;
     [SerializeField] private GameObject animalBlocks1Prefab;
     [SerializeField] private GameObject animalBlocks2Prefab;
+
+    private AudioSource audioSource;
 
     public GameStates NewGameState
     {
@@ -97,6 +104,10 @@ public class GameManager : MonoBehaviour
         //initialise the state machines
         currentGameState = GameStates.Initialised;
         NewGameState = GameStates.Initialised;
+
+        //get the audio source (required component)
+        audioSource = this.gameObject.GetComponent<AudioSource>();
+        audioSource.playOnAwake = false;
     }
 
     // Start is called before the first frame update
@@ -237,19 +248,24 @@ public class GameManager : MonoBehaviour
         NewGameState = GameStates.GameSelection;
     }
 
+    public void playSound(AudioClip audioClip)
+    {
+        audioSource.clip = audioClip;
+        audioSource.Play();
+    }
 
-    public void FarmAnimalsSelected()
+    public void FarmAnimalsSelected(AudioClip audioClip)
     {
         addWeight(animalBlocks1Prefab, leftSpawnPoint);
         addWeight(animalBlocks2Prefab, rightSpawnPoint);
-        WeightsSelected();
+        WeightsSelected(audioClip);
     }
 
-    public void CartoonBlocksSelected()
+    public void CartoonBlocksSelected(AudioClip audioClip)
     {
         addWeight(cartoonBlocks1Prefab, leftSpawnPoint);
         addWeight(cartoonBlocks2Prefab, rightSpawnPoint);
-        WeightsSelected();
+        WeightsSelected(audioClip);
     }
 
     public void FruitsSelected()
@@ -257,10 +273,11 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public void WeightsSelected()
+    private void WeightsSelected(AudioClip audioClip)
     {
         //detect which pack is selected and load
-
+        audioSource.clip = audioClip;
+        audioSource.Play();
 
 
         //switch to already selected game state

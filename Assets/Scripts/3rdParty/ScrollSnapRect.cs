@@ -1,4 +1,9 @@
-﻿using UnityEngine;
+﻿//ScrollSnapRect.cs
+//Author: SBCGames
+//Link: https://youtu.be/OsnyJNbqYXo
+
+
+using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Collections;

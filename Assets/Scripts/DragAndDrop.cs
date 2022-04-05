@@ -1,3 +1,8 @@
+//Author: Craig Zeki
+//Student ID: zek21003166
+//
+//Some help from SamYam's video on Youtube: https://youtu.be/ERAN5KBy2Gs
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

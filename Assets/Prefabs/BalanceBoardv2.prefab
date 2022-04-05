@@ -1284,7 +1284,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4998440834468469649, guid: a0a69d58933003b428c75182bab9a81f, type: 3}
       propertyPath: m_Name
-      value: Bucket1 (1)
+      value: Bucket2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a0a69d58933003b428c75182bab9a81f, type: 3}

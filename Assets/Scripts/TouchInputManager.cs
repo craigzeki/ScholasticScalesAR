@@ -1,10 +1,12 @@
+//Author: Craig Zeki
+//Student ID: zek21003166
+//
+//Based on SamYam's video on Youtube: https://youtu.be/ERAN5KBy2Gs
+
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
-
-
-//Modified version based on tutorial found here https://youtu.be/ERAN5KBy2Gs
 
 [DefaultExecutionOrder(-1)] //run before the other scripts
 public class TouchInputManager : MonoBehaviour

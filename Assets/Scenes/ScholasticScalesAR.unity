@@ -696,7 +696,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 44.3
+  m_fontSize: 68.95
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1127,7 +1127,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 49.65
+  m_fontSize: 70.55
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1485,13 +1485,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2139269264}
+      - m_Target: {fileID: 2139269267}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: CartoonBlocksSelected
-        m_Mode: 1
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 8300000, guid: 5eb5469311e013c4db6504b36f174fae, type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -2093,7 +2093,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 47.85
+  m_fontSize: 66.6
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2309,10 +2309,10 @@ MonoBehaviour:
       - m_Target: {fileID: 2139269263}
         m_TargetAssemblyTypeName: ScalesPlacementManager, Assembly-CSharp
         m_MethodName: doneButtonClicked
-        m_Mode: 1
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 8300000, guid: 5eb5469311e013c4db6504b36f174fae, type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -2908,7 +2908,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2139269264}
+      - m_Target: {fileID: 2139269267}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: FruitsSelected
         m_Mode: 1
@@ -3590,13 +3590,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2139269264}
+      - m_Target: {fileID: 2139269267}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: FarmAnimalsSelected
-        m_Mode: 1
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 8300000, guid: 5eb5469311e013c4db6504b36f174fae, type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -3837,10 +3837,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2139269262}
-  - component: {fileID: 2139269264}
   - component: {fileID: 2139269263}
   - component: {fileID: 2139269265}
   - component: {fileID: 2139269266}
+  - component: {fileID: 2139269267}
+  - component: {fileID: 2139269264}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -3882,26 +3883,102 @@ MonoBehaviour:
   doneButton: {fileID: 1164029314}
   scanner: {fileID: 528404196}
   arRaycastManager: {fileID: 82808688}
---- !u!114 &2139269264
-MonoBehaviour:
+--- !u!82 &2139269264
+AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2139269261}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ff4bd34e8efe394a99c73ba702ef0f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  selectWeightsCanvas: {fileID: 165585586}
-  selectGameTypeCanvas: {fileID: 40919617}
-  quizBlockPrefab: {fileID: 8312207376954670070, guid: a41325ed732742b4d82aa6b4f1f3c7e2, type: 3}
-  learnBlockPrefab: {fileID: 7898831594355202167, guid: 75a2a05d8a023f14c9fb5143c214449c, type: 3}
-  cartoonBlocks1Prefab: {fileID: 2556633449478119573, guid: 0d131645b82893c49873bea4cac28148, type: 3}
-  cartoonBlocks2Prefab: {fileID: 2556633449478119573, guid: 0d131645b82893c49873bea4cac28148, type: 3}
-  animalBlocks1Prefab: {fileID: 3466460141448788166, guid: d4fa088539a4bf14a83f5cab2a307a9f, type: 3}
-  animalBlocks2Prefab: {fileID: 3466460141448788166, guid: d4fa088539a4bf14a83f5cab2a307a9f, type: 3}
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!114 &2139269265
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3928,3 +4005,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   arRaycastManager: {fileID: 82808688}
   touchSpeed: 10
+--- !u!114 &2139269267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2139269261}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ff4bd34e8efe394a99c73ba702ef0f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectWeightsCanvas: {fileID: 165585586}
+  selectGameTypeCanvas: {fileID: 40919617}
+  quizBlockPrefab: {fileID: 8312207376954670070, guid: a41325ed732742b4d82aa6b4f1f3c7e2, type: 3}
+  learnBlockPrefab: {fileID: 7898831594355202167, guid: 75a2a05d8a023f14c9fb5143c214449c, type: 3}
+  cartoonBlocks1Prefab: {fileID: 2556633449478119573, guid: 0d131645b82893c49873bea4cac28148, type: 3}
+  cartoonBlocks2Prefab: {fileID: 2556633449478119573, guid: 0d131645b82893c49873bea4cac28148, type: 3}
+  animalBlocks1Prefab: {fileID: 3466460141448788166, guid: 048423f8f77d76c459e0577ed71baae4, type: 3}
+  animalBlocks2Prefab: {fileID: 3466460141448788166, guid: 048423f8f77d76c459e0577ed71baae4, type: 3}

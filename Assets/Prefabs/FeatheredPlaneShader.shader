@@ -1,3 +1,8 @@
+//Author: Craig Zeki
+//Student ID: zek21003166
+//
+//Based on Unity Learn's Tutorial: https://learn.unity.com/tutorial/implementing-feathered-planes-for-plane-detection-in-ar-foundation#
+
 Shader "Unlit/FeatheredPlaneShader"
 {
     Properties

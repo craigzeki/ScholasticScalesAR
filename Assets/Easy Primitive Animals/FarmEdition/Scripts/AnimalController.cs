@@ -1,4 +1,8 @@
-﻿using System.Collections;
+﻿//AnimalController.cs
+//Author: Bit Gamey
+//Link: Part of Easy Primitive Animals Pack on Unity Asset Store: https://assetstore.unity.com/packages/3d/characters/animals/easy-primitive-animals-farm-edition-184047
+
+using System.Collections;
 using UnityEngine;
 
 namespace EasyPrimitiveAnimals

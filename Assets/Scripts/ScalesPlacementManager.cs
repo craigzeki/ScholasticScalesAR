@@ -1,3 +1,6 @@
+//Author: Craig Zeki
+//Student ID: zek21003166
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -282,9 +285,10 @@ public class ScalesPlacementManager : MonoBehaviour
         }
     }
 
-    public void doneButtonClicked()
+    public void doneButtonClicked(AudioClip audioClip)
     {
         selectedPlane.gameObject.SetActive(false);
+        GameManager.Instance.playSound(audioClip);
         NewState = ScalesPlacementState.Complete;
     }
 }
