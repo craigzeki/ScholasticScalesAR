@@ -2,7 +2,7 @@
 [Tt]emp/
 [Oo]bj/
 [Bb]uild/
-[Bb]uilds/
+#[Bb]uilds/ build allowed for marking
 Assets/AssetStoreTools*
 
 # Visual Studio cache directory
@@ -33,5 +33,5 @@ ExportedObj/
 sysinfo.txt
 
 # Builds
-*.apk
+#*.apk build allowed for marking
 *.unitypackage
